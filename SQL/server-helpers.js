@@ -1,3 +1,5 @@
+var dbConnection = require('../SQL/db.js');
+
 var headers = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -19,7 +21,10 @@ exports.collectData = function(request, cb){
 exports.sendResponse = function(response, obj, status){
   status = status || 200;
   response.writeHead(status, headers);
-  var string = JSON.stringify(obj);
+  var string = JSON.stringify({results: obj});
   console.log("Sending: %s", string);
+
+  // dbConnection.end();
+
   response.end(string);
 };
